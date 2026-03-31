@@ -1,0 +1,10 @@
+[project]
+name = "lab-1"
+version = "0.1.0"
+description = "BSC 26L Andrzej Pultyn"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "matplotlib>=3.6.3",
+    "pypuf==3.2.1",
+]
