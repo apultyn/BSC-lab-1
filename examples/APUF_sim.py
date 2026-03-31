@@ -10,9 +10,7 @@ from matplotlib.ticker import LinearLocator
 
 Num_of_challenges = 10_000
 puf_bias = 0.0
-size_tab = np.array(
-    [8, 16, 24, 32, 48, 54, 64, 72, 80, 88, 96, 104, 112, 120, 128], dtype="int"
-)
+size_tab = np.array([8, 16, 24, 32, 48, 54, 64, 72, 80, 88, 96, 104, 112, 120, 128], dtype="int")
 noisiness_tab = np.array(
     [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], dtype="float"
 )
