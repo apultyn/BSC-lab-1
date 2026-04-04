@@ -1,6 +1,4 @@
-def main():
-    print("Hello from lab-1!")
-
+from src.analysis import run_experiments
 
 if __name__ == "__main__":
-    main()
+    run_experiments()
