@@ -127,7 +127,9 @@ def run_experiments():
     axs[0].set_ylabel("Reliability")
     axs[0].grid(True)
 
-    axs[1].errorbar(n_values, rel_n, yerr=rel_n_std, marker="s", color="green", capsize=4)
+    axs[1].errorbar(
+        n_values, rel_n, yerr=rel_n_std, marker="s", color="green", capsize=4
+    )
     axs[1].set_title("Niezawodność vs Liczba stadiów (n)")
     axs[1].set_xlabel("n (długość łańcucha)")
     axs[1].set_ylabel("Reliability")
@@ -168,7 +170,10 @@ def run_experiments():
     save_csv(
         output_dir / "noise_results.csv",
         ["noisiness", "reliability"],
-        [(f"{noise:.4f}", f"{reliability:.6f}") for noise, reliability in zip(noise_levels, rel_noise)],
+        [
+            (f"{noise:.4f}", f"{reliability:.6f}")
+            for noise, reliability in zip(noise_levels, rel_noise)
+        ],
     )
     save_csv(
         output_dir / "n_results.csv",

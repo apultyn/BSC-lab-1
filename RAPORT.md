@@ -2,21 +2,13 @@
 
 ## Cel projektu
 
-Celem projektu było przebadanie niezawodności układu typu **Feed-Forward Arbiter PUF**
-(FF Arbiter PUF) w zależności od jego typowych parametrów konstrukcyjnych. W ramach
-analizy uwzględniono również parametr `noisiness`, który modeluje niestabilność odpowiedzi
-PUF wynikającą z zakłóceń pomiarowych lub zmian warunków pracy.
+Celem projektu było przebadanie niezawodności układu typu **Feed-Forward Arbiter PUF** (FF Arbiter PUF) w zależności od jego typowych parametrów konstrukcyjnych. W ramach analizy uwzględniono również parametr `noisiness`, który modeluje niestabilność odpowiedzi PUF wynikającą z zakłóceń pomiarowych lub zmian warunków pracy.
 
-Badanie zostało wykonane symulacyjnie z użyciem biblioteki `pypuf`. Dla każdej konfiguracji
-PUF wielokrotnie ewaluowano ten sam zestaw wyzwań, a następnie porównywano otrzymane
-odpowiedzi.
+Badanie zostało wykonane symulacyjnie z użyciem biblioteki `pypuf`. Dla każdej konfiguracji PUF wielokrotnie ewaluowano ten sam zestaw wyzwań, a następnie porównywano otrzymane odpowiedzi.
 
 ## Badany typ PUF
 
-W projekcie analizowany jest **Feed-Forward Arbiter PUF**, czyli wariant Arbiter PUF, w którym
-część sygnałów pośrednich jest zawracana do dalszych etapów jako dodatkowa informacja
-sterująca. Taka konstrukcja zwiększa złożoność zależności pomiędzy wyzwaniem a odpowiedzią,
-ponieważ odpowiedź nie zależy wyłącznie od liniowej akumulacji opóźnień w kolejnych stadiach.
+W projekcie analizowany jest **Feed-Forward Arbiter PUF**, czyli wariant Arbiter PUF, w którym część sygnałów pośrednich jest zawracana do dalszych etapów jako dodatkowa informacja sterująca. Taka konstrukcja zwiększa złożoność zależności pomiędzy wyzwaniem a odpowiedzią, ponieważ odpowiedź nie zależy wyłącznie od liniowej akumulacji opóźnień w kolejnych stadiach.
 
 W symulacji wykorzystywana jest klasa:
 
@@ -33,13 +25,9 @@ gdzie:
 
 ## Analizowana metryka
 
-Analizowaną metryką jest **Reliability**, czyli miara powtarzalności odpowiedzi PUF dla tych
-samych wyzwań. Dla stabilnego, idealnego układu ta sama próbka powinna przy każdej ewaluacji
-zwracać tę samą odpowiedź.
+Analizowaną metryką jest **Reliability**, czyli miara powtarzalności odpowiedzi PUF dla tych samych wyzwań. Dla stabilnego, idealnego układu ta sama próbka powinna przy każdej ewaluacji zwracać tę samą odpowiedź.
 
-W implementacji dla jednej konfiguracji generowanych jest `1000` wyzwań, a następnie PUF jest
-ewaluowany `10` razy dla tego samego zbioru wyzwań. Dla każdej pary ewaluacji obliczana jest
-średnia odległość Hamminga odpowiedzi:
+W implementacji dla jednej konfiguracji generowanych jest `1000` wyzwań, a następnie PUF jest ewaluowany `10` razy dla tego samego zbioru wyzwań. Dla każdej pary ewaluacji obliczana jest średnia odległość Hamminga odpowiedzi:
 
 ```text
 intra_hd = mean(response_i != response_j)
@@ -51,8 +39,7 @@ Niezawodność jest następnie liczona jako:
 Reliability = 1 - mean(intra_hd)
 ```
 
-Wartość `1.0` oznacza pełną powtarzalność odpowiedzi, natomiast niższe wartości oznaczają
-większą niestabilność.
+Wartość `1.0` oznacza pełną powtarzalność odpowiedzi, natomiast niższe wartości oznaczają większą niestabilność.
 
 ## Metodyka eksperymentów
 
@@ -68,12 +55,11 @@ Stałe parametry symulacji:
 - liczba ewaluacji dla tego samego zbioru wyzwań: `10`,
 - ziarno losowości dla badania `noisiness`: `42`.
 
-W porównaniu z pierwotną wersją zwiększono liczbę testów dla badania długości łańcucha oraz
-badania liczby sprzężeń. Dla tych dwóch serii każda konfiguracja była badana dla pięciu
-niezależnych seedów: `42`, `43`, `44`, `45`, `46`. W tabelach podano średnią wartość
-`Reliability` oraz odchylenie standardowe między tymi pięcioma instancjami PUF.
+Dla dwóch ostatnich serii każda konfiguracja była badana dla pięciu niezależnych seedów: `42`, `43`, `44`, `45`, `46`. W tabelach podano średnią wartość `Reliability` oraz odchylenie standardowe między tymi pięcioma instancjami PUF.
 
-## Wyniki: wpływ parametru noisiness
+## Wyniki
+
+### Wpływ parametru noisiness
 
 Dla pierwszej serii eksperymentów przyjęto:
 
@@ -99,7 +85,7 @@ Dla braku szumu (`0.0`) odpowiedzi są w pełni powtarzalne. Przy maksymalnym ba
 szumu (`0.5`) niezawodność spada do około `0.7565`, co oznacza znacznie większy udział
 niezgodności pomiędzy kolejnymi ewaluacjami tych samych wyzwań.
 
-## Wyniki: wpływ długości łańcucha opóźnień
+### Wpływ długości łańcucha opóźnień
 
 Dla drugiej serii eksperymentów przyjęto:
 
@@ -134,7 +120,7 @@ poziom szumu. Dodatkowe punkty pomiarowe pokazują, że pojedyncze porównanie k
 `n` może łatwo sugerować trend, który po uśrednieniu po większej liczbie instancji okazuje się
 raczej lokalną fluktuacją.
 
-## Wyniki: wpływ liczby sprzężeń feed-forward
+### Wpływ liczby sprzężeń feed-forward
 
 Dla trzeciej serii eksperymentów przyjęto:
 
@@ -166,18 +152,6 @@ Wynik nadal pokazuje jednak wyraźną różnicę między klasycznym układem bez
 ze sprzężeniami. Sprzężenia feed-forward zwiększają złożoność struktury, ale przy obecności
 szumu mogą pogarszać powtarzalność odpowiedzi.
 
-## Wykres zbiorczy i dane
-
-Wygenerowany wykres zbiorczy znajduje się poniżej:
-
-![Wykres niezawodności FF Arbiter PUF](output/puf_reliability_report.png)
-
-Program zapisuje również dane liczbowe do plików:
-
-- `output/noise_results.csv`,
-- `output/n_results.csv`,
-- `output/ff_results.csv`.
-
 ## Wnioski
 
 Najsilniejszy wpływ na badaną metrykę ma parametr `noisiness`. Wzrost poziomu szumu prowadzi
@@ -199,12 +173,3 @@ jednak jego stabilność maleje wraz ze wzrostem `noisiness` oraz po dodaniu spr
 feed-forward. Rozszerzenie liczby testów pokazało, że dla parametrów konstrukcyjnych takich jak
 `n` i liczba sprzężeń warto analizować wiele konfiguracji i kilka instancji losowych, ponieważ
 pojedyncze wyniki mogą być podatne na fluktuacje wynikające z konkretnego rozkładu opóźnień.
-
-## Możliwe rozszerzenia
-
-Projekt można rozszerzyć o:
-
-- większą liczbę losowych instancji PUF dla każdej konfiguracji,
-- analizę dodatkowych metryk, takich jak uniqueness lub uniformity,
-- badanie wpływu różnych położeń sprzężeń feed-forward przy tej samej liczbie sprzężeń,
-- porównanie wyników dla kilku wartości `noisiness` w badaniach `n` oraz `ff`.
