@@ -119,34 +119,14 @@ def run_experiments():
     rel_ff = [summary[0] for summary in ff_summaries]
     rel_ff_std = [summary[1] for summary in ff_summaries]
 
-    fig, axs = plt.subplots(1, 3, figsize=(15, 5))
-
-    axs[0].plot(noise_levels, rel_noise, marker="o", color="blue")
-    axs[0].set_title("Niezawodność vs Noisiness")
-    axs[0].set_xlabel("Poziom szumu (noisiness)")
-    axs[0].set_ylabel("Reliability")
-    axs[0].grid(True)
-
-    axs[1].errorbar(
-        n_values, rel_n, yerr=rel_n_std, marker="s", color="green", capsize=4
-    )
-    axs[1].set_title("Niezawodność vs Liczba stadiów (n)")
-    axs[1].set_xlabel("n (długość łańcucha)")
-    axs[1].set_ylabel("Reliability")
-    axs[1].grid(True)
-
-    x_labels = [str(count) for count in ff_counts]
-    axs[2].bar(x_labels, rel_ff, yerr=rel_ff_std, color="orange", capsize=4)
-    axs[2].set_title("Niezawodność vs Liczba pętli FF")
-    axs[2].set_xlabel("Liczba sprzężeń w przód")
-    axs[2].set_ylabel("Reliability")
-    axs[2].set_ylim(min(rel_ff) - 0.05, 1.0)
-    axs[2].grid(axis="y")
-
-    output_path = output_dir / "puf_reliability_report.png"
-
+    plt.figure(figsize=(7, 5))
+    plt.plot(noise_levels, rel_noise, marker="o", color="blue")
+    plt.title("Niezawodność vs Noisiness")
+    plt.xlabel("Poziom szumu (noisiness)")
+    plt.ylabel("Reliability")
+    plt.grid(True)
     plt.tight_layout()
-    plt.savefig(output_path)
+    plt.savefig(output_dir / "reliability_vs_noise.png")
 
     plt.figure(figsize=(7, 5))
     plt.errorbar(n_values, rel_n, yerr=rel_n_std, marker="s", color="green", capsize=4)
@@ -156,6 +136,8 @@ def run_experiments():
     plt.grid(True)
     plt.tight_layout()
     plt.savefig(output_dir / "reliability_vs_n.png")
+
+    x_labels = [str(count) for count in ff_counts]
 
     plt.figure(figsize=(7, 5))
     plt.bar(x_labels, rel_ff, yerr=rel_ff_std, color="orange", capsize=4)
@@ -204,6 +186,5 @@ def run_experiments():
         ],
     )
     print(
-        "Analiza zakończona. Wygenerowano wykresy do pliku "
-        "'output/puf_reliability_report.png' oraz osobne wykresy dla badań n i ff."
+        "Analiza zakończona. Wygenerowano osobne wykresy dla badań noisiness, n i ff."
     )

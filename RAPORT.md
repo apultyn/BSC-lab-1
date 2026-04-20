@@ -1,5 +1,12 @@
 # Raport projektowy
 
+## Autor
+
+- Andrzej Pultyn
+- 325213
+- [andrzej.pultyn.stud@pw.edu.pl]
+- bsc26
+
 ## Cel projektu
 
 Celem projektu było przebadanie niezawodności układu typu **Feed-Forward Arbiter PUF** (FF Arbiter PUF) w zależności od jego typowych parametrów konstrukcyjnych. W ramach analizy uwzględniono również parametr `noisiness`, który modeluje niestabilność odpowiedzi PUF wynikającą z zakłóceń pomiarowych lub zmian warunków pracy.
@@ -79,6 +86,8 @@ Dla pierwszej serii eksperymentów przyjęto:
 | 0.3889 | 0.792978 |
 | 0.4444 | 0.771111 |
 | 0.5000 | 0.756489 |
+
+![Wpływ parametru noisiness na niezawodność](output/reliability_vs_noise.png)
 
 Wyniki pokazują jednoznaczny spadek niezawodności wraz ze wzrostem parametru `noisiness`.
 Dla braku szumu (`0.0`) odpowiedzi są w pełni powtarzalne. Przy maksymalnym badanym poziomie
