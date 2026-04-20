@@ -4,7 +4,7 @@
 
 - Andrzej Pultyn
 - 325213
-- [andrzej.pultyn.stud@pw.edu.pl]
+- andrzej.pultyn.stud@pw.edu.pl
 - bsc26
 
 ## Cel projektu
@@ -29,7 +29,6 @@ gdzie:
 - `ff` określa położenie sprzężeń feed-forward,
 - `seed` zapewnia powtarzalność eksperymentów,
 - `noisiness` określa poziom zaszumienia odpowiedzi.
-
 ## Analizowana metryka
 
 Analizowaną metryką jest **Reliability**, czyli miara powtarzalności odpowiedzi PUF dla tych samych wyzwań. Dla stabilnego, idealnego układu ta sama próbka powinna przy każdej ewaluacji zwracać tę samą odpowiedź.
@@ -89,10 +88,7 @@ Dla pierwszej serii eksperymentów przyjęto:
 
 ![Wpływ parametru noisiness na niezawodność](output/reliability_vs_noise.png)
 
-Wyniki pokazują jednoznaczny spadek niezawodności wraz ze wzrostem parametru `noisiness`.
-Dla braku szumu (`0.0`) odpowiedzi są w pełni powtarzalne. Przy maksymalnym badanym poziomie
-szumu (`0.5`) niezawodność spada do około `0.7565`, co oznacza znacznie większy udział
-niezgodności pomiędzy kolejnymi ewaluacjami tych samych wyzwań.
+Wyniki pokazują jednoznaczny spadek niezawodności wraz ze wzrostem parametru `noisiness`. Dla braku szumu (`0.0`) odpowiedzi są w pełni powtarzalne. Przy maksymalnym badanym poziomie szumu (`0.5`) niezawodność spada do około `0.7565`, co oznacza znacznie większy udział niezgodności pomiędzy kolejnymi ewaluacjami tych samych wyzwań.
 
 ### Wpływ długości łańcucha opóźnień
 
@@ -119,15 +115,9 @@ Dla drugiej serii eksperymentów przyjęto:
 
 ![Wpływ długości łańcucha opóźnień na niezawodność](output/reliability_vs_n.png)
 
-Rozszerzona seria testów nie wskazuje na silną monotoniczną zależność między długością
-łańcucha a niezawodnością. Najwyższą średnią wartość uzyskano dla `n = 16` (`0.938778`), ale
-dla tej konfiguracji wystąpiło też relatywnie duże odchylenie standardowe. Dla większości
-pozostałych długości wyniki skupiają się w wąskim zakresie około `0.918-0.926`.
+Rozszerzona seria testów nie wskazuje na silną monotoniczną zależność między długością łańcucha a niezawodnością. Najwyższą średnią wartość uzyskano dla `n = 16` (`0.938778`), ale dla tej konfiguracji wystąpiło też relatywnie duże odchylenie standardowe. Dla większości pozostałych długości wyniki skupiają się w wąskim zakresie około `0.918-0.926`.
 
-Można więc uznać, że przy `noisiness = 0.1` długość łańcucha wpływa na wynik słabiej niż sam
-poziom szumu. Dodatkowe punkty pomiarowe pokazują, że pojedyncze porównanie kilku wartości
-`n` może łatwo sugerować trend, który po uśrednieniu po większej liczbie instancji okazuje się
-raczej lokalną fluktuacją.
+Można więc uznać, że przy `noisiness = 0.1` długość łańcucha wpływa na wynik słabiej niż sam poziom szumu. Dodatkowe punkty pomiarowe pokazują, że pojedyncze porównanie kilku wartości `n` może łatwo sugerować trend, który po uśrednieniu po większej liczbie instancji okazuje się raczej lokalną fluktuacją.
 
 ### Wpływ liczby sprzężeń feed-forward
 
@@ -152,33 +142,16 @@ Dla trzeciej serii eksperymentów przyjęto:
 
 ![Wpływ liczby sprzężeń feed-forward na niezawodność](output/reliability_vs_ff.png)
 
-Najwyższą niezawodność osiąga układ bez sprzężeń feed-forward (`0.957324`). Dodanie jednego
-sprzężenia obniża średnią do `0.942044`, a dalsze zwiększanie liczby sprzężeń utrzymuje wyniki
-głównie w zakresie około `0.918-0.929`. Po rozszerzeniu testów zależność nie jest idealnie
-monotoniczna: konfiguracje z `4` i `6` sprzężeniami wypadają lepiej niż sąsiednie warianty.
+Najwyższą niezawodność osiąga układ bez sprzężeń feed-forward (`0.957324`). Dodanie jednego sprzężenia obniża średnią do `0.942044`, a dalsze zwiększanie liczby sprzężeń utrzymuje wyniki głównie w zakresie około `0.918-0.929`. Po rozszerzeniu testów zależność nie jest idealnie monotoniczna: konfiguracje z `4` i `6` sprzężeniami wypadają lepiej niż sąsiednie warianty.
 
-Wynik nadal pokazuje jednak wyraźną różnicę między klasycznym układem bez sprzężeń a wariantami
-ze sprzężeniami. Sprzężenia feed-forward zwiększają złożoność struktury, ale przy obecności
-szumu mogą pogarszać powtarzalność odpowiedzi.
+Wynik nadal pokazuje jednak wyraźną różnicę między klasycznym układem bez sprzężeń a wariantami ze sprzężeniami. Sprzężenia feed-forward zwiększają złożoność struktury, ale przy obecności szumu mogą pogarszać powtarzalność odpowiedzi.
 
 ## Wnioski
 
-Najsilniejszy wpływ na badaną metrykę ma parametr `noisiness`. Wzrost poziomu szumu prowadzi
-do wyraźnego i monotonicznego spadku niezawodności, co jest zgodne z intuicją: im większa
-niestabilność symulowanego układu, tym większa szansa, że ta sama próbka zwróci inną odpowiedź
-przy kolejnej ewaluacji.
+Najsilniejszy wpływ na badaną metrykę ma parametr `noisiness`. Wzrost poziomu szumu prowadzi do wyraźnego i monotonicznego spadku niezawodności, co jest zgodne z intuicją: im większa niestabilność symulowanego układu, tym większa szansa, że ta sama próbka zwróci inną odpowiedź przy kolejnej ewaluacji.
 
-Długość łańcucha opóźnień `n` wpływa na wynik słabiej. Po zwiększeniu liczby punktów pomiarowych
-i uśrednieniu po pięciu instancjach PUF wartości `Reliability` pozostają dla większości
-konfiguracji blisko siebie. Nie zaobserwowano jednoznacznej zależności monotonicznej.
+Długość łańcucha opóźnień `n` wpływa na wynik słabiej. Po zwiększeniu liczby punktów pomiarowych i uśrednieniu po pięciu instancjach PUF wartości `Reliability` pozostają dla większości konfiguracji blisko siebie. Nie zaobserwowano jednoznacznej zależności monotonicznej.
 
-Liczba sprzężeń feed-forward ma zauważalny wpływ przede wszystkim przy przejściu od układu bez
-sprzężeń do układów ze sprzężeniami. Dalsze zwiększanie liczby sprzężeń nie powoduje już
-prostego, liniowego spadku niezawodności, ale wszystkie badane warianty ze sprzężeniami były
-mniej niezawodne niż wariant bez sprzężeń.
+Liczba sprzężeń feed-forward ma zauważalny wpływ przede wszystkim przy przejściu od układu bez sprzężeń do układów ze sprzężeniami. Dalsze zwiększanie liczby sprzężeń nie powoduje już prostego, liniowego spadku niezawodności, ale wszystkie badane warianty ze sprzężeniami były mniej niezawodne niż wariant bez sprzężeń.
 
-Podsumowując, badany FF Arbiter PUF zachowuje wysoką niezawodność dla niskich poziomów szumu,
-jednak jego stabilność maleje wraz ze wzrostem `noisiness` oraz po dodaniu sprzężeń
-feed-forward. Rozszerzenie liczby testów pokazało, że dla parametrów konstrukcyjnych takich jak
-`n` i liczba sprzężeń warto analizować wiele konfiguracji i kilka instancji losowych, ponieważ
-pojedyncze wyniki mogą być podatne na fluktuacje wynikające z konkretnego rozkładu opóźnień.
+Podsumowując, badany FF Arbiter PUF zachowuje wysoką niezawodność dla niskich poziomów szumu, jednak jego stabilność maleje wraz ze wzrostem `noisiness` oraz po dodaniu sprzężeń feed-forward. Rozszerzenie liczby testów pokazało, że dla parametrów konstrukcyjnych takich jak `n` i liczba sprzężeń warto analizować wiele konfiguracji i kilka instancji losowych, ponieważ pojedyncze wyniki mogą być podatne na fluktuacje wynikające z konkretnego rozkładu opóźnień.
