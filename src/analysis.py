@@ -85,7 +85,7 @@ def run_experiments():
         for nz in noise_levels
     ]
 
-    print("2. Badanie wpływu długości łańcucha opóźnień (n)...")
+    print("2. Badanie wpływu długości wyzwania (n)...")
     n_values = [16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512]
     ff_configs = [proportional_ff(n) for n in n_values]
     n_summaries = [
@@ -130,8 +130,8 @@ def run_experiments():
 
     plt.figure(figsize=(7, 5))
     plt.errorbar(n_values, rel_n, yerr=rel_n_std, marker="s", color="green", capsize=4)
-    plt.title("Niezawodność vs Liczba stadiów (n)")
-    plt.xlabel("n (długość łańcucha)")
+    plt.title("Niezawodność vs Długość wyzwania (n)")
+    plt.xlabel("n (długość wyzwania)")
     plt.ylabel("Reliability")
     plt.grid(True)
     plt.tight_layout()

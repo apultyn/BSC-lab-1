@@ -25,7 +25,7 @@ FeedForwardArbiterPUF(n=n, ff=ff, seed=seed, noisiness=noisiness)
 
 gdzie:
 
-- `n` oznacza liczbę stadiów, czyli długość łańcucha opóźnień,
+- `n` długość wyzwania (challenge) w bitach,
 - `ff` określa położenie sprzężeń feed-forward,
 - `seed` zapewnia powtarzalność eksperymentów,
 - `noisiness` określa poziom zaszumienia odpowiedzi.
@@ -52,14 +52,14 @@ Wartość `1.0` oznacza pełną powtarzalność odpowiedzi, natomiast niższe wa
 Przeprowadzono trzy serie eksperymentów:
 
 1. Wpływ parametru `noisiness` na niezawodność.
-2. Wpływ długości łańcucha opóźnień `n` na niezawodność.
+2. Wpływ długości wyzwania `n` na niezawodność.
 3. Wpływ liczby sprzężeń feed-forward na niezawodność.
 
 Stałe parametry symulacji:
 
 - liczba wyzwań: `1000`,
 - liczba ewaluacji dla tego samego zbioru wyzwań: `10`,
-- ziarno losowości dla badania `noisiness`: `42`.
+- seed dla badania `noisiness`: `42`.
 
 Dla dwóch ostatnich serii każda konfiguracja była badana dla pięciu niezależnych seedów: `42`, `43`, `44`, `45`, `46`. W tabelach podano średnią wartość `Reliability` oraz odchylenie standardowe między tymi pięcioma instancjami PUF.
 
@@ -90,7 +90,7 @@ Dla pierwszej serii eksperymentów przyjęto:
 
 Wyniki pokazują jednoznaczny spadek niezawodności wraz ze wzrostem parametru `noisiness`. Dla braku szumu (`0.0`) odpowiedzi są w pełni powtarzalne. Przy maksymalnym badanym poziomie szumu (`0.5`) niezawodność spada do około `0.7565`, co oznacza znacznie większy udział niezgodności pomiędzy kolejnymi ewaluacjami tych samych wyzwań.
 
-### Wpływ długości łańcucha opóźnień
+### Wpływ długości wyzwania
 
 Dla drugiej serii eksperymentów przyjęto:
 
@@ -99,7 +99,7 @@ Dla drugiej serii eksperymentów przyjęto:
 - dwa sprzężenia feed-forward rozmieszczone proporcjonalnie do długości łańcucha:
   `[(n/4, n/2), (n/2, 3n/4)]`.
 
-| Liczba stadiów `n` | Konfiguracja `ff` | Średnia Reliability | Odchylenie std. |
+| Długość wyzwania `n` | Konfiguracja `ff` | Średnia Reliability | Odchylenie std. |
 | ---: | --- | ---: | ---: |
 | 16 | `[(4, 8), (8, 12)]` | 0.938778 | 0.020313 |
 | 24 | `[(6, 12), (12, 18)]` | 0.922271 | 0.024166 |
@@ -113,9 +113,9 @@ Dla drugiej serii eksperymentów przyjęto:
 | 384 | `[(96, 192), (192, 288)]` | 0.925271 | 0.004888 |
 | 512 | `[(128, 256), (256, 384)]` | 0.921080 | 0.006555 |
 
-![Wpływ długości łańcucha opóźnień na niezawodność](output/reliability_vs_n.png)
+![Wpływ długości wyzwania na niezawodność](output/reliability_vs_n.png)
 
-Rozszerzona seria testów nie wskazuje na silną monotoniczną zależność między długością łańcucha a niezawodnością. Najwyższą średnią wartość uzyskano dla `n = 16` (`0.938778`), ale dla tej konfiguracji wystąpiło też relatywnie duże odchylenie standardowe. Dla większości pozostałych długości wyniki skupiają się w wąskim zakresie około `0.918-0.926`.
+Rozszerzona seria testów nie wskazuje na silną monotoniczną zależność między długością wyzwania a niezawodnością. Najwyższą średnią wartość uzyskano dla `n = 16` (`0.938778`), ale dla tej konfiguracji wystąpiło też relatywnie duże odchylenie standardowe. Dla większości pozostałych długości wyniki skupiają się w wąskim zakresie około `0.918-0.926`.
 
 Można więc uznać, że przy `noisiness = 0.1` długość łańcucha wpływa na wynik słabiej niż sam poziom szumu. Dodatkowe punkty pomiarowe pokazują, że pojedyncze porównanie kilku wartości `n` może łatwo sugerować trend, który po uśrednieniu po większej liczbie instancji okazuje się raczej lokalną fluktuacją.
 
@@ -150,8 +150,8 @@ Wynik nadal pokazuje jednak wyraźną różnicę między klasycznym układem bez
 
 Najsilniejszy wpływ na badaną metrykę ma parametr `noisiness`. Wzrost poziomu szumu prowadzi do wyraźnego i monotonicznego spadku niezawodności, co jest zgodne z intuicją: im większa niestabilność symulowanego układu, tym większa szansa, że ta sama próbka zwróci inną odpowiedź przy kolejnej ewaluacji.
 
-Długość łańcucha opóźnień `n` wpływa na wynik słabiej. Po zwiększeniu liczby punktów pomiarowych i uśrednieniu po pięciu instancjach PUF wartości `Reliability` pozostają dla większości konfiguracji blisko siebie. Nie zaobserwowano jednoznacznej zależności monotonicznej.
+Długość łańcucha wyzwania `n` wpływa na wynik słabiej. Po zwiększeniu liczby punktów pomiarowych i uśrednieniu po pięciu instancjach PUF wartości `Reliability` pozostają dla większości konfiguracji blisko siebie. Nie zaobserwowano jednoznacznej zależności monotonicznej.
 
 Liczba sprzężeń feed-forward ma zauważalny wpływ przede wszystkim przy przejściu od układu bez sprzężeń do układów ze sprzężeniami. Dalsze zwiększanie liczby sprzężeń nie powoduje już prostego, liniowego spadku niezawodności, ale wszystkie badane warianty ze sprzężeniami były mniej niezawodne niż wariant bez sprzężeń.
 
-Podsumowując, badany FF Arbiter PUF zachowuje wysoką niezawodność dla niskich poziomów szumu, jednak jego stabilność maleje wraz ze wzrostem `noisiness` oraz po dodaniu sprzężeń feed-forward. Rozszerzenie liczby testów pokazało, że dla parametrów konstrukcyjnych takich jak `n` i liczba sprzężeń warto analizować wiele konfiguracji i kilka instancji losowych, ponieważ pojedyncze wyniki mogą być podatne na fluktuacje wynikające z konkretnego rozkładu opóźnień.
+Podsumowując, badany FF Arbiter PUF zachowuje wysoką niezawodność dla niskich poziomów szumu, jednak jego stabilność maleje wraz ze wzrostem `noisiness` oraz po dodaniu sprzężeń feed-forward. Rozszerzenie liczby testów pokazało, że dla parametrów konstrukcyjnych takich jak `n` i liczba sprzężeń warto analizować wiele konfiguracji i kilka instancji losowych.
